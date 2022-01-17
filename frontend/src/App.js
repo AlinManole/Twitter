@@ -9,7 +9,7 @@ const App = () => {
   return (
     <div className="container">
       <div className="row">
-        <Icons />
+        <Icons className="col-4"/>
         <div className="col">
           Column
         </div>
