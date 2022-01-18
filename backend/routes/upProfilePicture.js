@@ -7,11 +7,11 @@ const moment = require("moment")
 const User = require ("../models/User")
 
 const upload = multer({ dest: 'public' })
-const {verifyUser} = require('../middlewares/verifyUser')
+
 
 
 app.post( 
-    '/:id/file',verifyUser, 
+    '/:id/file',
     upload.single('photo'), 
     async (req, res) => 
     {

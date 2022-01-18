@@ -4,7 +4,6 @@ const {sameNameEmail} = require('../middlewares/userSignup')
 
 const User = require("../models/User")
 
-const {verifyUser} = require('../middlewares/verifyUser')
 
 app.post('/', sameNameEmail, async (req, res) => {
     try {
@@ -78,7 +77,7 @@ app.get('/:id', async (req, res) => {
     }
 })
 
-app.put('/:id',verifyUser, async (req, res) => {
+app.put('/:id', async (req, res) => {
     const { id } = req.params
 
     try {
@@ -95,7 +94,7 @@ app.put('/:id',verifyUser, async (req, res) => {
     }
 })
 
-app.delete('/:id',verifyUser, async (req, res) => {
+app.delete('/:id', async (req, res) => {
     const {id} = req.params
 
     try {

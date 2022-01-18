@@ -1,9 +1,8 @@
 const express = require("express")
 const app = express()
-const {verifyUser} = require('../middlewares/verifyUser')
 const Tweet = require ("../models/Tweet")
 
-app.post("/",verifyUser, (req, res) => {
+app.post("/", (req, res) => {
     const tweet = new Tweet({
         ...req.body
       })
@@ -36,7 +35,7 @@ app.get("/", async (req, res) => {
     }
 })
 
-app.delete("/:id",verifyUser ,async (req, res) => {
+app.delete("/:id" ,async (req, res) => {
     const { id } = req.params
 
     try {

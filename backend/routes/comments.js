@@ -2,12 +2,12 @@ const express = require ("express")
 const app = express()
 const Comment = require("../models/Comment")
 const User = require ("../models/User")
-const {verifyUser} = require('../middlewares/verifyUser')
 
 
-app.post('/',verifyUser, async (req, res) => {
+
+app.post('/', async (req, res) => {
     const { author, content , tweet } = req.body
-    console.log("valeur de author =>",author);
+    console.log("Author name =>",author);
     try {
       const comment = new Comment({ ...req.body })
       const commentInsered = await comment
@@ -26,7 +26,7 @@ app.post('/',verifyUser, async (req, res) => {
     }
 })
   
-app.delete('/:id',verifyUser, async (req, res) => {
+app.delete('/:id', async (req, res) => {
   const { id } = req.params
 
   try {
