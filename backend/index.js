@@ -5,12 +5,14 @@ const cors = require('cors')
 const session = require("express-session")
 const passport = require("./config/passport")
 const mongoose = require("mongoose")
-// les routes importer
+
+
+//routes
 const usersRoutes = require("./routes/users")
 const tweetsRoutes = require("./routes/tweets")
 const commentsRoutes = require("./routes/comments")
 const authRoutes = require("./routes/auth")
-const uploadRoutes = require("./routes/upProfilePicture")
+const uploadRoutes = require("./routes/upProfilePicture.js")
 
 
 

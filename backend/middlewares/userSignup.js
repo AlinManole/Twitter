@@ -8,7 +8,7 @@ const sameNameEmail = async (req, res, next) => {
     const checkNameAndEmail = await Users.findOne({email: email})
     console.log("log middleware",checkNameAndEmail);
     if (checkNameAndEmail) {
-        res.status(401).json("email déja utiliser")
+        res.status(401).json("email in use")
     } else {
         next()
     }
