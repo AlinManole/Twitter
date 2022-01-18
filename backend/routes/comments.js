@@ -2,8 +2,10 @@ const express = require ("express")
 const app = express()
 const Comment = require("../models/Comment")
 const User = require ("../models/User")
+const {verifyUser} = require('../middlewares/verifyUser')
 
-app.post('/', async (req, res) => {
+
+app.post('/',verifyUser, async (req, res) => {
     const { author, content , tweet } = req.body
     console.log("valeur de author =>",author);
     try {
@@ -13,6 +15,7 @@ app.post('/', async (req, res) => {
       let user = await User.findById(author)
 
       user.comments.push(commentInsered._id)
+
       await user.save()
       await commentInsered.save()
 
@@ -23,8 +26,7 @@ app.post('/', async (req, res) => {
     }
 })
   
- 
-app.delete('/:id', async (req, res) => {
+app.delete('/:id',verifyUser, async (req, res) => {
   const { id } = req.params
 
   try {
