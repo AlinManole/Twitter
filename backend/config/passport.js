@@ -3,9 +3,9 @@ const passportLocal = require("passport-local")
 let Users = require('../models/User')
 const LocalStrategy = passportLocal.Strategy
 
-passport.use(new LocalStrategy(async (username, password, done) => {
+passport.use(new LocalStrategy(async (name, password, done) => {
 
-    const user = await Users.findOne({ name: username, password: password })
+    const user = await Users.findOne({ name: name, password: password })
     .populate({ path: 'followers'})
     .populate({ path: 'following'})
     .populate({ path: 'tweets'})
