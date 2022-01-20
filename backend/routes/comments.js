@@ -1,37 +1,38 @@
 const express = require ("express")
 const app = express()
 const Comment = require("../models/Comment")
+const Tweet = require("../models/Tweet")
 const User = require ("../models/User")
 
-app.get('/:id', async (req, res) => {
-  const { id } = req.params
-
-  const comment = await Comment.findOne({ _id: id })
-
-
-  .exec()
-  res.json(comment)
-})
-
 app.post('/', async (req, res) => {
-    const { author, content , tweet } = req.body
-    // console.log("Author name =>",author);
-    try {
-      const comment = new Comment({ ...req.body })
-      const commentInsered = await comment
+  const { user, tweet } = req.body
 
-      let user = await User.findById(author)
+  try{
+      const comment = await new Comment({...req.body})
 
-      user.comments.push(commentInsered.id)
+      comment.save(async (err, comment) => {
+          if (comment) {
+              await User.updateOne(
+                  { _id: user },
+                  { $push: { comments: comment._id } }
+              )
+              
+              await Tweet.updateOne(
+                  { _id: tweet },
+                  { $push: { tweets: tweet._id}}
+              )
+  
+              res.json(comment)
+              return
+          }
 
-      await user.save()
-      await commentInsered.save()
-
-      res.json(commentInsered)
-    }catch (err) {
+          console.log(err)
+          res.status(500).json({ error: err })
+      })
+  } catch (err) {
       console.log(err)
       res.status(500).json({ error: err })
-    }
+  }
 })
   
 app.delete('/:id', async (req, res) => {
