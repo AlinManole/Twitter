@@ -90,10 +90,10 @@ const Home = () => {
                     </Log>
                     <SignUp>
                         <h3 className="text-white">Rejoignez Twitter Maintenant</h3>
-                        <button className="btn btn-primary btn-mall"><Link to="/inscription" />S'inscrire</button>
+                        <button type="button" className="btn btn-primary btn-small"><Link to="/inscription" className="text-decoration-none text-white">S'inscrire </Link></button>
                     </SignUp>
                 </Border>
-            </HomePage>
+            </HomePage >
         </>
     );
 };
