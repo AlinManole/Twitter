@@ -1,4 +1,6 @@
 import React from 'react';
+import styled from "styled-components"
+
 
 import TwitterBird from "../img/twitter.jpg";
 import House from "../img/house.png";
@@ -10,13 +12,37 @@ import List from "../img/list.png";
 import User from "../img/user.png";
 import { Link } from 'react-router-dom';
 
+import { useForm } from "react-hook-form"
+
 import Button from "../components/button"
 
+const HomePage = styled.div`
+display: flex;
+flex-direction: row;
+background: black;
+`
+
+const Border = styled.div`
+border : 1px solid darkgray;
+`
+
+const Log = styled.div`
+display: flex;
+flex-direction : column;
+margin-top: 50%;
+`
+
+const SignUp = styled.div`
+margin-top: 30px;
+`
+
 const Home = () => {
+    const { register, handleSubmit, watch, formState: { errors } } = useForm();
+    const onSubmit = data => console.log(data);
     return (
         <>
-            <div className="row mh-100 bg-black">
-                <div className="col">
+            <HomePage>
+                <div className="col-5">
                     <Link to="/" ><img src={TwitterBird} className="img-fluid col-4" alt="Oiseau de twitter" style={{ height: "60px", width: "70px" }} /></Link>
                     <div className="d-flex align-items-end">
                         <div className="col-4">
@@ -52,10 +78,22 @@ const Home = () => {
                     </div>
                     <Button className="mt-4" />
                 </div>
-                <div className="w-50 col mt-5 pt-5 border border-secondary border-1 justify-content-center d-flex">
-                    <h2 className="text-white">Accueil </h2>
-                </div>
-            </div>
+                <Border>
+                    <Log>
+                        <h2 className="text-white">Accueil </h2>
+                        <form onSubmit={handleSubmit(onSubmit)} className="col">
+                            <input defaultValue="test" {...register("example")} />
+                            <input {...register("exampleRequired", { required: true })} />
+                            {errors.exampleRequired && <span>This field is required</span>}
+                            <input type="submit" />
+                        </form>
+                    </Log>
+                    <SignUp>
+                        <h3 className="text-white">Rejoignez Twitter Maintenant</h3>
+                        <button className="btn btn-primary btn-mall"><Link to="/inscription" />S'inscrire</button>
+                    </SignUp>
+                </Border>
+            </HomePage>
         </>
     );
 };

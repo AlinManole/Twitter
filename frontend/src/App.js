@@ -10,6 +10,7 @@ import UserHome from './Pages/UserHome'
 import NotFound from './Pages/NotFound';
 import Notification from "./Pages/Notifications"
 import Message from "./Pages/Messages"
+import Inscription from './Pages/Inscription'
 
 import 'bootstrap/dist/css/bootstrap.css';
 
@@ -22,6 +23,7 @@ const App = () => {
         <Route exact path="/" element={<Home />} />
         <Route path="/explorer" element={<Explorer />} />
         <Route path="/:id" element={<UserProfile />} />
+        <Route path="/inscription" element={<Inscription />} />
         <Route path="/:id/notifications" element={<Notification />} />
         <Route path="/:id/messages" element={<Message />} />
         <Route path="/home" element={<UserHome />} />
