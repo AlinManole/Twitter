@@ -1,20 +1,38 @@
 const express = require("express")
 const app = express()
 const Tweet = require ("../models/Tweet")
+const User = require("../models/User");
 
-app.post("/", (req, res) => {
-    const tweet = new Tweet({
-        ...req.body
-      })
-    
-    tweet.save((err, tweet) => {
-        if (err) {
-          res.status(500).json({ error: err })
-          return
-        }
-        res.json(tweet)
-    })
-})
+
+app.post("/", async (req, res) => {
+    const { id } = req.params;
+
+    try {
+
+        const tweet = await new Tweet({
+            ...req.body,
+            user: id
+        });
+
+        tweet.save(async (err, tweet) => {
+            if (tweet) {
+                const getCurrentUser = await User.findOne({ id: id }).exec()
+                getCurrentUser.tweets.push(tweet.id);
+                getCurrentUser.save();
+
+                res.json(tweet);
+                return;
+            }
+            console.log("tweet", tweet);
+            console.log(err);
+            res.status(500).json({ error: err });
+        });
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({ error: err });
+    }
+});
+
 app.get("/", async (req, res) => {
     
     try {

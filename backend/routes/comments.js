@@ -3,18 +3,26 @@ const app = express()
 const Comment = require("../models/Comment")
 const User = require ("../models/User")
 
+app.get('/:id', async (req, res) => {
+  const { id } = req.params
 
+  const comment = await Comment.findOne({ _id: id })
+
+
+  .exec()
+  res.json(comment)
+})
 
 app.post('/', async (req, res) => {
     const { author, content , tweet } = req.body
-    console.log("Author name =>",author);
+    // console.log("Author name =>",author);
     try {
       const comment = new Comment({ ...req.body })
       const commentInsered = await comment
 
       let user = await User.findById(author)
 
-      user.comments.push(commentInsered._id)
+      user.comments.push(commentInsered.id)
 
       await user.save()
       await commentInsered.save()

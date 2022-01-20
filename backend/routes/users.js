@@ -4,6 +4,9 @@ const {sameNameEmail} = require('../middlewares/userSignup')
 
 const User = require("../models/User")
 
+const Tweet = require("../models/Tweet")
+const Comment = require("../models/Comment")
+
 
 app.post('/', sameNameEmail, async (req, res) => {
     try {
