@@ -3,7 +3,7 @@ const app = express()
 
 const passport = require('../config/passport')
 
-// route qui permet de ce login 
+//  login route
 app.post("/login", passport.authenticate("local"), (req, res) => {
 
     if (req.user) {

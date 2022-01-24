@@ -19,7 +19,7 @@ app.post('/', async (req, res) => {
               
               await Tweet.updateOne(
                   { _id: tweet },
-                  { $push: { tweets: tweet._id}}
+                  { $push: { comments: comment._id}}
               )
   
               res.json(comment)
